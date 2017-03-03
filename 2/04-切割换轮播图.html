@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+
+        .main {
+            width: 750px;
+            height: 454px;
+
+            box-shadow: 0 0 2px skyblue;
+            border-radius: 5px;
+            margin: 100px auto;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        li {
+            float: left;
+            height: 100%;
+            width: 150px;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(0deg);
+            transition: all 1.25s;
+        }
+
+        li span {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        li span:nth-child(1) {
+            background-image: url("../img/1.jpg");
+            transform: translateZ(310px);
+        }
+
+        li span:nth-child(2) {
+            background-image: url("../img/2.jpg");
+            transform: rotateX(72deg) translateZ(310px);
+        }
+
+        li span:nth-child(3) {
+            background-image: url("../img/3.jpg");
+            transform: rotateX(144deg) translateZ(310px);
+        }
+
+        li span:nth-child(4) {
+            background-image: url("../img/4.jpg");
+            transform: rotateX(216deg) translateZ(310px);
+        }
+
+        li span:nth-child(5) {
+            background-image: url("../img/5.jpg");
+            transform: rotateX(288deg) translateZ(310px);
+        }
+
+        li:nth-child(2) {
+            transition-delay: 0.25s;
+        }
+
+        li:nth-child(3) {
+            transition-delay: 0.5s;
+        }
+
+        li:nth-child(4) {
+            transition-delay: 0.75s;
+        }
+
+        li:nth-child(5) {
+            transition-delay: 1s;
+        }
+
+        li:nth-child(6) {
+            transition-delay: 1.25s;
+        }
+
+
+        li:nth-child(2) span {
+            background-position: -150px;
+        }
+
+        li:nth-child(3) span {
+            background-position: -300px 0;
+        }
+
+        li:nth-child(4) span {
+            background-position: -450px 0;
+        }
+
+        li:nth-child(5) span {
+            background-position: -600px 0;
+        }
+
+        li:nth-child(6) span {
+            background-position: -750px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <ul>
+        <li>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </li>
+        <li>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </li>
+        <li>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </li>
+        <li>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </li>
+        <li>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </li>
+
+
+    </ul>
+    <a class="prev">向前</a>
+    <a class="next">向后</a>
+</div>
+<script>
+    var bLi=document.querySelectorAll('li');
+    var num=0;
+
+    document.querySelector('.prev').onclick=function(){
+        num++;
+        for(var i=0;i<bLi.length;i++){
+            bLi[i].style.webkitTransform= 'rotateX(' + num * 72 + 'deg)';
+        }
+    }
+
+    document.querySelector('.next').onclick = function () {
+        num--;
+        for (var i = 0; i < bLi.length; i++) {
+            bLi[i].style.webkitTransform = 'rotateX(' + num * 72 + 'deg)';
+        }
+    }
+
+</script>
+</body>
+</html>

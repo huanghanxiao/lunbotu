@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .box {
+            width: 730px;
+            height: 454px;
+            padding: 8px;
+            border: 1px dotted orangered;
+            margin: 100px auto;
+        }
+
+        .inner {
+            position: relative;
+            overflow: hidden;
+            height: 454px;
+        }
+
+        #imglist {
+            width: 700%;
+            position: absolute;
+            left: 0;
+        }
+
+        li {
+            float: left;
+        }
+
+        .list {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            margin-left: -85px;
+        }
+
+        .list i {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: aqua;
+            color: #333333;
+            float: left;
+            font-style: normal;
+            line-height: 20px;
+            font-size: 14px;
+            text-align: center;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .list i:last-child {
+            margin-left: 0;
+        }
+
+        .list i.current {
+            background-color: yellow;
+            color: orangered;
+        }
+
+        .arrow {
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            margin-top: -30px;
+            display: none;
+        }
+
+        .arrow-left, .arrow-right {
+            width: 30px;
+            height: 60px;
+            position: absolute;
+            font: 20px/60px "consolas";
+            color: #fff;
+            background-color: rgba(0, 0, 0, .3);
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .arrow-right {
+            right: 0;
+        }
+
+    </style>
+</head>
+<body>
+<div class="box" id="box">
+    <div class="inner" id="inner">
+        <ul id="imglist">
+            <li><a href="#"><img src="../img/1.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="../img/2.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="../img/3.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="../img/4.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="../img/5.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="../img/6.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="../img/1.jpg" alt=""/></a></li>
+        </ul>
+        <div class="list">
+            <i class="current">1</i>
+            <i>2</i>
+            <i>3</i>
+            <i>4</i>
+            <i>5</i>
+            <i>6</i>
+        </div>
+        <div class="arrow">
+            <span class="arrow-left">&lt;</span>
+            <span class="arrow-right">&gt;</span>
+        </div>
+    </div>
+</div>
+<script src="animate.js"></script>
+
+<script>
+    /**
+     * 当鼠标移入移出时，箭头的显示与隐藏
+     * 点击箭头按钮，轮播图往不同方向移动
+     *
+     */
+    var box = $id("box");
+    //    注意结构，arrow是box的孙子
+    var arrow = box.children[0].children[2];
+    //    注意鼠标移入移出的事件
+    box.onmouseover = function () {
+        arrow.style.display = "block";
+    }
+    box.onmouseout = function () {
+        arrow.style.display = "none";
+    }
+
+    //    点击左右按钮，让轮播图前后切换
+    var leftBtn = arrow.children[0];
+    var rightBtn = arrow.children[1];
+    var ul = box.children[0].children[0];
+    var imgWidth = ul.children[0].offsetWidth;
+    //  用来记录当前的图片是哪一张
+    var currentIndex = 0;
+    //    注册点击事件
+    leftBtn.onclick = function () {
+//        点击左边按钮的时候，思考，currentIndex是加还是减
+        currentIndex--;
+        if (currentIndex <= 0) {
+//            让它等于小于0的时候就已经是最后一张
+//            （这是下一步的事：和这里无关，和第一张相同的那张已经准备进来啦）
+            currentIndex = 0;
+        }
+//        在这里面让ul向右移动
+//                需要计算出ul要移动到哪里
+        var target = currentIndex * imgWidth * -1;
+
+//        重新设置ul的偏移量
+//        ul.style.left=target+"px";
+        animate(ul, target);
+    }
+    rightBtn.onclick = function () {
+        currentIndex++;
+        if (currentIndex >= 6) {
+            currentIndex = 6;
+        }
+        var target = currentIndex * imgWidth * -1;
+//        ul.style.left = target + "px";
+        animate(ul, target);
+    }
+
+</script>
+</body>
+</html>

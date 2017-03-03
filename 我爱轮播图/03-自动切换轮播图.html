@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .box {
+            width: 730px;
+            height: 454px;
+            padding: 8px;
+            border: 1px solid green;
+            margin: 100px auto;
+        }
+
+        .inner {
+            position: relative;
+            overflow: hidden;
+            height: 454px;
+        }
+
+        #imglist {
+            width: 700%;
+            position: absolute;
+            left: 0;
+        }
+
+        li {
+            float: left;
+        }
+
+        .list {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            margin-left: -85px;
+        }
+
+        .list i {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #fff;
+            color: #333;
+            float: left;
+            font-style: normal;
+            line-height: 20px;
+            font-size: 14px;
+            text-align: center;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .list i:last-child {
+            margin-right: 0;
+        }
+
+        .list i.current {
+            background-color: skyblue;
+            color: #fff;
+        }
+
+        .arrow {
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            margin-top: -30px;
+            display: none;
+        }
+
+        .arrow-left, .arrow-right {
+            width: 30px;
+            height: 60px;
+            position: absolute;
+            font: 20px/60px "consolas";
+            color: #fff;
+            background-color: rgba(0, 0, 0, .3);
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .arrow-right {
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="box" id="box">
+    <div class="inner" id="inner">
+        <ul id="imglist">
+            <li><a href="#"><img src="../img/1.jpg" alt=""></a></li>
+            <li><a href="#"><img src="../img/2.jpg" alt=""></a></li>
+            <li><a href="#"><img src="../img/3.jpg" alt=""></a></li>
+            <li><a href="#"><img src="../img/4.jpg" alt=""></a></li>
+            <li><a href="#"><img src="../img/5.jpg" alt=""></a></li>
+            <li><a href="#"><img src="../img/6.jpg" alt=""></a></li>
+            <li><a href="#"><img src="../img/1.jpg" alt=""></a></li>
+        </ul>
+        <div class="list">
+            <i class="current">1</i>
+            <i>2</i>
+            <i>3</i>
+            <i>4</i>
+            <i>5</i>
+            <i>6</i>
+        </div>
+        <div class="arrow">
+            <span class="arrow-left">&lt;</span>
+            <span class="arrow-right">&gt;</span>
+        </div>
+    </div>
+</div>
+
+<script src="animate.js"></script>
+
+<script>
+    //自动切换的轮播图
+    //    切换的过程是一个计时器
+    //    切换动画也是一个计时器
+    var ul = $id("imglist");
+    var imgWidth = ul.children[0].offsetWidth;
+    //    用来记录当前是哪一种
+    var currentIndex = 0;
+
+    //    隔一段时间就设置一下ul的定位
+    setInterval(function () {
+//        要在我们进来切换之前对currentIndex进行判断,看看是否已经到达最后一张（看起来就是最后一张）
+        if (currentIndex == 6) {
+//            在这是：让它恢复到最初始的位置
+            currentIndex = 0;
+            ul.style.left = "0px";
+        }
+//        切换图片的时候，要对当前图片进行记录
+        currentIndex++;
+        console.log(currentIndex);
+//        计算要切换的ul的left的值
+        var target = currentIndex * imgWidth * -1;
+//        重新设定
+//        ul.style.left=target+"px";
+        animate(ul, target);
+    }, 3000);
+</script>
+</body>
+</html>

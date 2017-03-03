@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .box {
+            width: 730px;
+            height: 454px;
+            padding: 8px;
+            border: 2px dashed yellow;
+            margin: 100px auto;
+        }
+
+        .inner {
+            position: relative;;
+            overflow: hidden;
+            height: 454px;
+        }
+
+        #imglist {
+            width: 600%;
+            position: absolute;
+            left: 0;
+        }
+
+        li {
+            float: left;
+        }
+
+        .list {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            margin-left: -85px;
+        }
+
+        .list i {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: orangered;
+            color: yellow;
+            float: left;
+            font-style: normal;
+            line-height: 20px;
+            font-size: 14px;
+            text-align: center;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .list i:last-child {
+            margin-right: 0;
+        }
+
+        .list i.current {
+            background-color: blueviolet;
+            color: orangered;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="box" id="box">
+    <div class="inner" id="inner">
+        <ul id="imglist">
+            <li><a href="#"><img src="../img/1.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="../img/2.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="../img/3.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="../img/4.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="../img/5.jpg" alt=""/></a></li>
+            <li><a href="#"><img src="../img/6.jpg" alt=""/></a></li>
+        </ul>
+        <div class="list">
+            <i class="current">1</i>
+            <i>2</i>
+            <i>3</i>
+            <i>4</i>
+            <i>5</i>
+            <i>6</i>
+        </div>
+    </div>
+</div>
+<script src="../2/commom.js"></script>
+<script src="../2/animate.js"></script>
+
+<script>
+    /**
+     * 思路：
+     *      挡鼠标移动到某一点上
+     *                  就计算出ul的移动距离
+     *                  让函数进行位移就可以啦
+     */
+//        1 获取所有要操作的元素
+//        通过节点的方式获取
+    var inner = $id("inner");
+    var ul = inner.children[0];
+    var imgWidth = ul.children[0].offsetWidth;
+    var circles = inner.children[1].children;
+
+    //        2 注册事件
+    for (var i = 0; i < circles.length; i++) {
+        circles[i].index = i;
+        circles[i].onmouseover = mouseOverHandle;
+    }
+
+    function mouseOverHandle() {
+//            计算ul 要移动的距离=对应的下标*图片的宽度*-1；
+        var offsetLeft = this.index * imgWidth * -1;
+//            移动
+        animate(ul, offsetLeft);
+//            不要忘记了修改每个li 标签的样式
+        for (var j = 0; j < circles.length; j++) {
+
+//           如何彻底的清除一个属性
+//           removeAttribute(要清除的属性)
+            circles[j].removeAttribute("class");
+            this, className = "current";
+        }
+    }
+
+
+</script>
+
+</body>
+</html>
